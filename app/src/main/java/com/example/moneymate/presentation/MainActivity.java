@@ -27,5 +27,9 @@ public class MainActivity extends AppCompatActivity {
                 .findFragmentById(R.id.nav_host_fragment);
         navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.bottomNavigation, navController);
+
+        // FAB nổi bật ở giữa bottom nav → navigate sang màn hình thêm giao dịch
+        binding.fabAddNav.setOnClickListener(v ->
+            binding.bottomNavigation.setSelectedItemId(R.id.addTransactionFragment));
     }
 }

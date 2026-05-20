@@ -2,10 +2,13 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/color_background">
+    android:background="@color/color_background"
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
@@ -15,18 +18,40 @@
         android:layout_weight="1"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph"
-        tools:layout="@layout/fragment_home"
-        xmlns:tools="http://schemas.android.com/tools" />
+        tools:layout="@layout/fragment_home" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+    <!-- Bottom nav + elevated FAB -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_surface"
-        app:menu="@menu/bottom_nav_menu"
-        app:labelVisibilityMode="labeled"
-        app:itemIconTint="@color/selector_bottom_nav"
-        app:itemTextColor="@color/selector_bottom_nav"
-        app:elevation="8dp" />
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_surface"
+            app:menu="@menu/bottom_nav_menu"
+            app:labelVisibilityMode="labeled"
+            app:itemIconTint="@color/selector_bottom_nav"
+            app:itemTextColor="@color/selector_bottom_nav"
+            app:elevation="8dp" />
+
+        <!-- Elevated + button — 60dp (1.5 × 40dp), dịch xuống bằng marginTop ít âm hơn -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_nav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_marginTop="-8dp"
+            android:contentDescription="Thêm giao dịch"
+            app:srcCompat="@android:drawable/ic_input_add"
+            app:backgroundTint="@color/color_primary"
+            app:tint="@color/white"
+            app:fabCustomSize="60dp"
+            app:maxImageSize="28dp"
+            app:elevation="10dp" />
+    </FrameLayout>
 
 </LinearLayout>

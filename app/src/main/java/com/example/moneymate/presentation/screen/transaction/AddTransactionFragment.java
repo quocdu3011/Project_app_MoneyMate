@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -39,6 +40,7 @@ public class AddTransactionFragment extends Fragment {
 
     private TransactionType selectedType = TransactionType.EXPENSE;
     private Category selectedCategory = null;
+    private Account selectedAccount = null;
     private List<Account> accountList = new ArrayList<>();
     private List<Category> allCategories = new ArrayList<>();
     private long selectedDate = System.currentTimeMillis();
@@ -68,6 +70,8 @@ public class AddTransactionFragment extends Fragment {
 
         binding.btnCancel.setOnClickListener(v ->
                 Navigation.findNavController(v).navigateUp());
+
+        binding.btnSelectAccount.setOnClickListener(v -> showAccountSelector());
     }
 
     // ── Category grid ──────────────────────────────────────────────────────────
@@ -269,6 +273,26 @@ public class AddTransactionFragment extends Fragment {
                 cal.get(Calendar.DAY_OF_MONTH)).show();
     }
 
+    private void showAccountSelector() {
+        if (accountList.isEmpty()) {
+            Toast.makeText(requireContext(), "Chưa có tài khoản nào", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String[] names = accountList.stream()
+                .map(Account::getName).toArray(String[]::new);
+        int currentIndex = selectedAccount != null ? accountList.indexOf(selectedAccount) : 0;
+
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Chọn tài khoản")
+                .setSingleChoiceItems(names, currentIndex, (dialog, which) -> {
+                    selectedAccount = accountList.get(which);
+                    binding.tvSelectedAccount.setText(selectedAccount.getName());
+                    dialog.dismiss();
+                })
+                .setNegativeButton("Hủy", null)
+                .show();
+    }
+
     // ── Save ───────────────────────────────────────────────────────────────────
 
     private void saveTransaction() {
@@ -292,7 +316,8 @@ public class AddTransactionFragment extends Fragment {
         transaction.setNote(binding.etNote.getText() != null
                 ? binding.etNote.getText().toString().trim() : "");
         transaction.setDate(selectedDate);
-        transaction.setAccountId(accountList.get(0).getId());
+        transaction.setAccountId(selectedAccount != null
+                ? selectedAccount.getId() : accountList.get(0).getId());
         if (selectedCategory != null) {
             transaction.setCategoryId(selectedCategory.getId());
         }
@@ -307,8 +332,14 @@ public class AddTransactionFragment extends Fragment {
             filterCategories();
         });
 
-        viewModel.getAccounts().observe(getViewLifecycleOwner(), accounts ->
-                accountList = accounts != null ? accounts : new ArrayList<>());
+        viewModel.getAccounts().observe(getViewLifecycleOwner(), accounts -> {
+            accountList = accounts != null ? accounts : new ArrayList<>();
+            // Mặc định chọn tài khoản đầu tiên
+            if (!accountList.isEmpty() && selectedAccount == null) {
+                selectedAccount = accountList.get(0);
+                binding.tvSelectedAccount.setText(selectedAccount.getName());
+            }
+        });
 
         viewModel.getSaveSuccess().observe(getViewLifecycleOwner(), success -> {
             if (Boolean.TRUE.equals(success)) {

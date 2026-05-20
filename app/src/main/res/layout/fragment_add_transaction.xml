@@ -116,12 +116,26 @@
             android:background="@color/color_surface_variant">
 
             <ImageView
+                android:id="@+id/btn_select_account"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@android:drawable/ic_menu_manage"
-                android:tint="@color/color_on_surface_secondary" />
+                android:tint="@color/color_on_surface_secondary"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless" />
 
-            <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" />
+            <TextView
+                android:id="@+id/tv_selected_account"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tiền mặt"
+                android:textSize="13sp"
+                android:textColor="@color/color_on_surface_secondary"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="1" />
 
             <TextView
                 android:id="@+id/tv_amount_display"

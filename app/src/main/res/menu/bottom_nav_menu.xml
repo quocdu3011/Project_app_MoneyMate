@@ -10,8 +10,8 @@
         android:title="Giao dịch" />
     <item
         android:id="@+id/addTransactionFragment"
-        android:icon="@drawable/ic_add_circle"
-        android:title="Thêm" />
+        android:icon="@drawable/ic_transparent"
+        android:title="" />
     <item
         android:id="@+id/budgetFragment"
         android:icon="@android:drawable/ic_menu_manage"
