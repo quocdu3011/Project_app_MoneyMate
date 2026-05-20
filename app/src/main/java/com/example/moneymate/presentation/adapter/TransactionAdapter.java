@@ -62,20 +62,35 @@ public class TransactionAdapter extends ListAdapter<Transaction, TransactionAdap
         }
 
         void bind(Transaction transaction, OnItemClickListener listener) {
+            android.content.Context ctx = binding.getRoot().getContext();
             binding.tvDate.setText(DateUtils.formatDate(transaction.getDate()));
-            binding.tvNote.setText(transaction.getNote() != null ? transaction.getNote() : "");
+            String note = (transaction.getNote() != null && !transaction.getNote().isEmpty())
+                    ? transaction.getNote() : "Giao dịch";
+            binding.tvNote.setText(note);
 
             String amount = CurrencyFormatter.formatVnd(transaction.getAmount());
+            int amountColor, indicatorColor;
+
             if (transaction.getType() == TransactionType.INCOME) {
                 binding.tvAmount.setText("+" + amount);
-                binding.tvAmount.setTextColor(0xFF4CAF50);
+                amountColor = androidx.core.content.ContextCompat.getColor(ctx, com.example.moneymate.R.color.color_income);
+                indicatorColor = amountColor;
             } else if (transaction.getType() == TransactionType.EXPENSE) {
                 binding.tvAmount.setText("-" + amount);
-                binding.tvAmount.setTextColor(0xFFF44336);
+                amountColor = androidx.core.content.ContextCompat.getColor(ctx, com.example.moneymate.R.color.color_expense);
+                indicatorColor = amountColor;
             } else {
                 binding.tvAmount.setText(amount);
-                binding.tvAmount.setTextColor(0xFF2196F3);
+                amountColor = androidx.core.content.ContextCompat.getColor(ctx, com.example.moneymate.R.color.color_transfer);
+                indicatorColor = amountColor;
             }
+            binding.tvAmount.setTextColor(amountColor);
+
+            android.graphics.drawable.GradientDrawable indicator = new android.graphics.drawable.GradientDrawable();
+            indicator.setShape(android.graphics.drawable.GradientDrawable.RECTANGLE);
+            indicator.setCornerRadius(8f);
+            indicator.setColor(indicatorColor);
+            binding.viewTypeIndicator.setBackground(indicator);
 
             binding.getRoot().setOnClickListener(v -> listener.onItemClick(transaction));
         }

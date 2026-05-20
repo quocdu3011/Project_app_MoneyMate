@@ -72,17 +72,17 @@
                     android:layout_weight="1"
                     android:layout_marginEnd="8dp"
                     app:cardCornerRadius="12dp"
-                    app:cardBackgroundColor="#E8F5E9">
+                    app:cardBackgroundColor="@color/color_income_bg">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="12dp">
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="Thu nhập" android:textColor="#4CAF50" />
+                            android:text="Thu nhập" android:textColor="@color/color_income" />
                         <TextView android:id="@+id/tv_total_income"
                             android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="0 ₫" android:textStyle="bold" android:textColor="#4CAF50"
+                            android:text="0 ₫" android:textStyle="bold" android:textColor="@color/color_income"
                             android:textSize="16sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -93,17 +93,17 @@
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
                     app:cardCornerRadius="12dp"
-                    app:cardBackgroundColor="#FFEBEE">
+                    app:cardBackgroundColor="@color/color_expense_bg">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="12dp">
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="Chi tiêu" android:textColor="#F44336" />
+                            android:text="Chi tiêu" android:textColor="@color/color_expense" />
                         <TextView android:id="@+id/tv_total_expense"
                             android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="0 ₫" android:textStyle="bold" android:textColor="#F44336"
+                            android:text="0 ₫" android:textStyle="bold" android:textColor="@color/color_expense"
                             android:textSize="16sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>

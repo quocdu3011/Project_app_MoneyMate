@@ -48,7 +48,7 @@
                         android:layout_height="wrap_content"
                         android:text="CHI TIÊU"
                         android:textSize="12sp"
-                        android:textColor="#757575"
+                        android:textColor="@color/color_on_surface_secondary"
                         android:layout_marginBottom="8dp" />
 
                     <TextView
@@ -58,7 +58,7 @@
                         android:text="-150.000 ₫"
                         android:textSize="32sp"
                         android:textStyle="bold"
-                        android:textColor="#F44336" />
+                        android:textColor="@color/color_expense" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -80,7 +80,7 @@
                     <LinearLayout android:layout_width="match_parent" android:layout_height="48dp"
                         android:orientation="horizontal" android:gravity="center_vertical">
                         <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                            android:layout_weight="1" android:text="Danh mục" android:textColor="#757575" />
+                            android:layout_weight="1" android:text="Danh mục" android:textColor="@color/color_on_surface_secondary" />
                         <TextView android:id="@+id/tv_detail_category"
                             android:layout_width="wrap_content" android:layout_height="wrap_content"
                             android:text="Ăn uống" android:textStyle="bold" />
@@ -93,7 +93,7 @@
                     <LinearLayout android:layout_width="match_parent" android:layout_height="48dp"
                         android:orientation="horizontal" android:gravity="center_vertical">
                         <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                            android:layout_weight="1" android:text="Tài khoản" android:textColor="#757575" />
+                            android:layout_weight="1" android:text="Tài khoản" android:textColor="@color/color_on_surface_secondary" />
                         <TextView android:id="@+id/tv_detail_account"
                             android:layout_width="wrap_content" android:layout_height="wrap_content"
                             android:text="Tiền mặt" android:textStyle="bold" />
@@ -106,7 +106,7 @@
                     <LinearLayout android:layout_width="match_parent" android:layout_height="48dp"
                         android:orientation="horizontal" android:gravity="center_vertical">
                         <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                            android:layout_weight="1" android:text="Ngày" android:textColor="#757575" />
+                            android:layout_weight="1" android:text="Ngày" android:textColor="@color/color_on_surface_secondary" />
                         <TextView android:id="@+id/tv_detail_date"
                             android:layout_width="wrap_content" android:layout_height="wrap_content"
                             android:text="20/05/2026" android:textStyle="bold" />
@@ -120,7 +120,7 @@
                         android:orientation="horizontal" android:gravity="center_vertical"
                         android:minHeight="48dp" android:paddingVertical="8dp">
                         <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                            android:layout_weight="1" android:text="Ghi chú" android:textColor="#757575" />
+                            android:layout_weight="1" android:text="Ghi chú" android:textColor="@color/color_on_surface_secondary" />
                         <TextView android:id="@+id/tv_detail_note"
                             android:layout_width="0dp" android:layout_height="wrap_content"
                             android:layout_weight="1" android:text=""
@@ -135,8 +135,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:text="Xóa giao dịch"
-                android:textColor="#F44336"
-                app:strokeColor="#F44336"
+                android:textColor="@color/color_expense"
+                app:strokeColor="@color/color_expense"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

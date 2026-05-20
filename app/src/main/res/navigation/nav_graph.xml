@@ -9,9 +9,17 @@
         android:name="com.example.moneymate.presentation.screen.home.HomeFragment"
         android:label="Trang chủ">
         <action android:id="@+id/action_home_to_addTransaction"
-            app:destination="@id/addTransactionFragment" />
+            app:destination="@id/addTransactionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out_right" />
         <action android:id="@+id/action_home_to_transactionDetail"
-            app:destination="@id/transactionDetailFragment" />
+            app:destination="@id/transactionDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -19,9 +27,17 @@
         android:name="com.example.moneymate.presentation.screen.transaction.TransactionListFragment"
         android:label="Giao dịch">
         <action android:id="@+id/action_transactions_to_add"
-            app:destination="@id/addTransactionFragment" />
+            app:destination="@id/addTransactionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out_right" />
         <action android:id="@+id/action_transactions_to_detail"
-            app:destination="@id/transactionDetailFragment" />
+            app:destination="@id/transactionDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment

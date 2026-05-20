@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand colors (same) -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Primary palette - Dark -->
+    <color name="color_primary">#D0BCFF</color>
+    <color name="color_primary_dark">#B69DF8</color>
+    <color name="color_primary_container">#4F378B</color>
+    <color name="color_secondary">#CCC2DC</color>
+    <color name="color_secondary_container">#4A4458</color>
+
+    <!-- Semantic - Dark -->
+    <color name="color_income">#81C784</color>
+    <color name="color_income_bg">#1B3A1C</color>
+    <color name="color_expense">#EF9A9A</color>
+    <color name="color_expense_bg">#3A1C1C</color>
+    <color name="color_transfer">#90CAF9</color>
+    <color name="color_transfer_bg">#1C2A3A</color>
+    <color name="color_warning">#FFB74D</color>
+    <color name="color_warning_bg">#3A2A10</color>
+
+    <!-- Surface - Dark -->
+    <color name="color_background">#121212</color>
+    <color name="color_surface">#1E1E1E</color>
+    <color name="color_surface_elevated">#2D2040</color>
+    <color name="color_surface_variant">#2D2D2D</color>
+    <color name="color_on_surface">#E6E1E5</color>
+    <color name="color_on_surface_secondary">#CAC4D0</color>
+    <color name="color_divider">#333333</color>
+    <color name="color_card_bg">#2B2930</color>
+    <color name="color_card_stroke">#49454F</color>
+    <color name="color_ripple">#1AD0BCFF</color>
+</resources>
