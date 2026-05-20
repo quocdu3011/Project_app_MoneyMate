@@ -4,9 +4,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.moneymate.domain.model.Category;
 import com.example.moneymate.domain.model.Transaction;
 import com.example.moneymate.domain.model.enums.TransactionType;
 import com.example.moneymate.domain.repository.AccountRepository;
+import com.example.moneymate.domain.repository.CategoryRepository;
 import com.example.moneymate.domain.repository.TransactionRepository;
 import com.example.moneymate.util.DateUtils;
 
@@ -23,18 +25,23 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class HomeViewModel extends ViewModel {
     private final TransactionRepository transactionRepository;
     private final AccountRepository accountRepository;
+    private final CategoryRepository categoryRepository;
     private final CompositeDisposable disposables = new CompositeDisposable();
 
     private final MutableLiveData<List<Transaction>> recentTransactions = new MutableLiveData<>();
     private final MutableLiveData<Double> totalBalance = new MutableLiveData<>(0.0);
     private final MutableLiveData<Double> monthlyIncome = new MutableLiveData<>(0.0);
     private final MutableLiveData<Double> monthlyExpense = new MutableLiveData<>(0.0);
+    private final MutableLiveData<List<Category>> categories = new MutableLiveData<>();
     private final MutableLiveData<String> error = new MutableLiveData<>();
 
     @Inject
-    public HomeViewModel(TransactionRepository transactionRepository, AccountRepository accountRepository) {
+    public HomeViewModel(TransactionRepository transactionRepository,
+                         AccountRepository accountRepository,
+                         CategoryRepository categoryRepository) {
         this.transactionRepository = transactionRepository;
         this.accountRepository = accountRepository;
+        this.categoryRepository = categoryRepository;
         loadData();
     }
 
@@ -42,6 +49,7 @@ public class HomeViewModel extends ViewModel {
         loadRecentTransactions();
         loadMonthlyTotals();
         loadTotalBalance();
+        loadCategories();
     }
 
     private void loadRecentTransactions() {
@@ -57,6 +65,7 @@ public class HomeViewModel extends ViewModel {
         );
     }
 
+    // Dùng Flowable (getTransactionsByDateRange) để tự động cập nhật khi có giao dịch mới
     private void loadMonthlyTotals() {
         int month = DateUtils.getCurrentMonth();
         int year = DateUtils.getCurrentYear();
@@ -64,17 +73,19 @@ public class HomeViewModel extends ViewModel {
         long end = DateUtils.getEndOfMonth(month, year);
 
         disposables.add(
-            transactionRepository.getTotalByTypeAndDateRange(TransactionType.INCOME, start, end)
+            transactionRepository.getTransactionsByDateRange(start, end)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(monthlyIncome::setValue, throwable -> error.setValue(throwable.getMessage()))
-        );
-
-        disposables.add(
-            transactionRepository.getTotalByTypeAndDateRange(TransactionType.EXPENSE, start, end)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(monthlyExpense::setValue, throwable -> error.setValue(throwable.getMessage()))
+                .subscribe(transactions -> {
+                    double income = transactions.stream()
+                        .filter(t -> t.getType() == TransactionType.INCOME)
+                        .mapToDouble(Transaction::getAmount).sum();
+                    double expense = transactions.stream()
+                        .filter(t -> t.getType() == TransactionType.EXPENSE)
+                        .mapToDouble(Transaction::getAmount).sum();
+                    monthlyIncome.setValue(income);
+                    monthlyExpense.setValue(expense);
+                }, throwable -> error.setValue(throwable.getMessage()))
         );
     }
 
@@ -93,12 +104,22 @@ public class HomeViewModel extends ViewModel {
         );
     }
 
+    private void loadCategories() {
+        disposables.add(
+            categoryRepository.getAllCategories()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(categories::setValue, t -> error.setValue(t.getMessage()))
+        );
+    }
+
     public void refresh() { loadData(); }
 
     public LiveData<List<Transaction>> getRecentTransactions() { return recentTransactions; }
     public LiveData<Double> getTotalBalance() { return totalBalance; }
     public LiveData<Double> getMonthlyIncome() { return monthlyIncome; }
     public LiveData<Double> getMonthlyExpense() { return monthlyExpense; }
+    public LiveData<List<Category>> getCategories() { return categories; }
     public LiveData<String> getError() { return error; }
 
     @Override

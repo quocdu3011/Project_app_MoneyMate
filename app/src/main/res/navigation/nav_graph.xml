@@ -10,16 +10,12 @@
         android:label="Trang chủ">
         <action android:id="@+id/action_home_to_addTransaction"
             app:destination="@id/addTransactionFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:enterAnim="@anim/slide_in_right" app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in" app:popExitAnim="@anim/slide_out_right" />
         <action android:id="@+id/action_home_to_transactionDetail"
             app:destination="@id/transactionDetailFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:enterAnim="@anim/slide_in_right" app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in" app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment

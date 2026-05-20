@@ -88,13 +88,35 @@ public class TransactionViewModel extends ViewModel {
             transactionRepository.insert(transaction)
                 .flatMapCompletable(id -> {
                     transaction.setId(id);
-                    return accountRepository.getAccountById(transaction.getAccountId())
-                        .flatMapCompletable(account -> {
-                            double newBalance = transaction.getType() == TransactionType.INCOME
-                                ? account.getBalance() + transaction.getAmount()
-                                : account.getBalance() - transaction.getAmount();
-                            return accountRepository.updateBalance(account.getId(), newBalance);
-                        });
+
+                    // Cập nhật số dư tài khoản
+                    io.reactivex.rxjava3.core.Completable updateBalance =
+                        accountRepository.getAccountById(transaction.getAccountId())
+                            .flatMapCompletable(account -> {
+                                double newBalance = transaction.getType() == TransactionType.INCOME
+                                    ? account.getBalance() + transaction.getAmount()
+                                    : account.getBalance() - transaction.getAmount();
+                                return accountRepository.updateBalance(account.getId(), newBalance);
+                            });
+
+                    // Cập nhật budget.spent nếu là CHI TIÊU và có danh mục
+                    io.reactivex.rxjava3.core.Completable updateBudget =
+                        io.reactivex.rxjava3.core.Completable.complete();
+                    if (transaction.getType() == TransactionType.EXPENSE
+                            && transaction.getCategoryId() > 0) {
+                        int month = com.example.moneymate.util.DateUtils.getCurrentMonth();
+                        int year = com.example.moneymate.util.DateUtils.getCurrentYear();
+                        updateBudget = budgetRepository
+                            .getBudgetByCategoryAndMonthYear(transaction.getCategoryId(), month, year)
+                            .flatMapCompletable(budget -> {
+                                double newSpent = budget.getSpent() + transaction.getAmount();
+                                return budgetRepository.updateSpent(
+                                    transaction.getCategoryId(), month, year, newSpent);
+                            })
+                            .onErrorComplete(); // bỏ qua nếu chưa có budget
+                    }
+
+                    return updateBalance.andThen(updateBudget);
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

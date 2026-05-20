@@ -14,6 +14,9 @@ import com.example.moneymate.domain.model.enums.TransactionType;
 import com.example.moneymate.util.CurrencyFormatter;
 import com.example.moneymate.util.DateUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TransactionAdapter extends ListAdapter<Transaction, TransactionAdapter.ViewHolder> {
 
     public interface OnItemClickListener {
@@ -21,6 +24,12 @@ public class TransactionAdapter extends ListAdapter<Transaction, TransactionAdap
     }
 
     private final OnItemClickListener listener;
+    private Map<Long, String> categoryMap = new HashMap<>();
+
+    public void setCategoryMap(Map<Long, String> map) {
+        this.categoryMap = map != null ? map : new HashMap<>();
+        notifyDataSetChanged();
+    }
 
     public TransactionAdapter(OnItemClickListener listener) {
         super(DIFF_CALLBACK);
@@ -50,7 +59,7 @@ public class TransactionAdapter extends ListAdapter<Transaction, TransactionAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(getItem(position), listener);
+        holder.bind(getItem(position), listener, categoryMap);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -61,12 +70,20 @@ public class TransactionAdapter extends ListAdapter<Transaction, TransactionAdap
             this.binding = binding;
         }
 
-        void bind(Transaction transaction, OnItemClickListener listener) {
+        void bind(Transaction transaction, OnItemClickListener listener, Map<Long, String> categoryMap) {
             android.content.Context ctx = binding.getRoot().getContext();
             binding.tvDate.setText(DateUtils.formatDate(transaction.getDate()));
-            String note = (transaction.getNote() != null && !transaction.getNote().isEmpty())
-                    ? transaction.getNote() : "Giao dịch";
-            binding.tvNote.setText(note);
+
+            // Ưu tiên: ghi chú → tên danh mục → "Giao dịch"
+            String label;
+            if (transaction.getNote() != null && !transaction.getNote().isEmpty()) {
+                label = transaction.getNote();
+            } else if (categoryMap.containsKey(transaction.getCategoryId())) {
+                label = categoryMap.get(transaction.getCategoryId());
+            } else {
+                label = "Giao dịch";
+            }
+            binding.tvNote.setText(label);
 
             String amount = CurrencyFormatter.formatVnd(transaction.getAmount());
             int amountColor, indicatorColor;

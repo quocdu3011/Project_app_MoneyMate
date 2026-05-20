@@ -14,7 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.moneymate.R;
 import com.example.moneymate.databinding.FragmentTransactionListBinding;
+import com.example.moneymate.domain.model.Category;
 import com.example.moneymate.presentation.adapter.TransactionAdapter;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -49,8 +54,18 @@ public class TransactionListFragment extends Fragment {
             binding.tvEmpty.setVisibility(transactions.isEmpty() ? View.VISIBLE : View.GONE);
         });
 
+        // Truyền category map để hiện tên danh mục
+        viewModel.getCategories().observe(getViewLifecycleOwner(), this::updateCategoryMap);
+
         binding.fabAdd.setOnClickListener(v ->
             Navigation.findNavController(v).navigate(R.id.action_transactions_to_add));
+    }
+
+    private void updateCategoryMap(List<Category> categories) {
+        if (categories == null) return;
+        Map<Long, String> map = new HashMap<>();
+        for (Category c : categories) map.put(c.getId(), c.getName());
+        adapter.setCategoryMap(map);
     }
 
     @Override

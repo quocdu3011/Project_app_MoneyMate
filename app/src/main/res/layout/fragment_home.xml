@@ -48,6 +48,27 @@
                         android:textSize="22sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
+                <!-- Account button -->
+                <ImageButton
+                    android:id="@+id/btn_account"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_coin"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:tint="@color/color_on_surface_secondary"
+                    android:contentDescription="Tài khoản"
+                    android:layout_marginEnd="4dp" />
+
+                <!-- Settings button -->
+                <ImageButton
+                    android:id="@+id/btn_settings"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@android:drawable/ic_menu_preferences"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:tint="@color/color_on_surface_secondary"
+                    android:contentDescription="Cài đặt" />
             </LinearLayout>
 
             <!-- Balance Card -->

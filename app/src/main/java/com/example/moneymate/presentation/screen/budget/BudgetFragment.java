@@ -12,8 +12,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.moneymate.databinding.FragmentBudgetBinding;
+import com.example.moneymate.domain.model.Category;
+import com.example.moneymate.presentation.adapter.BudgetAdapter;
 import com.example.moneymate.util.CurrencyFormatter;
 import com.example.moneymate.util.DateUtils;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -21,6 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class BudgetFragment extends Fragment {
     private FragmentBudgetBinding binding;
     private BudgetViewModel viewModel;
+    private BudgetAdapter budgetAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,11 +40,18 @@ public class BudgetFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(BudgetViewModel.class);
 
+        setupRecyclerView();
         updateMonthYearLabel();
         setupMonthNavigation();
         observeViewModel();
 
         binding.fabAddBudget.setOnClickListener(v -> showAddBudgetDialog());
+    }
+
+    private void setupRecyclerView() {
+        budgetAdapter = new BudgetAdapter();
+        binding.rvBudgets.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.rvBudgets.setAdapter(budgetAdapter);
     }
 
     private void setupMonthNavigation() {
@@ -65,6 +79,7 @@ public class BudgetFragment extends Fragment {
 
     private void observeViewModel() {
         viewModel.getBudgets().observe(getViewLifecycleOwner(), budgets -> {
+            budgetAdapter.submitList(budgets);
             double totalBudget = budgets.stream().mapToDouble(b -> b.getAmount()).sum();
             double totalSpent = budgets.stream().mapToDouble(b -> b.getSpent()).sum();
             binding.tvTotalBudget.setText(CurrencyFormatter.formatVnd(totalBudget));
@@ -72,6 +87,15 @@ public class BudgetFragment extends Fragment {
             int progress = totalBudget > 0 ? (int) ((totalSpent / totalBudget) * 100) : 0;
             binding.progressTotal.setProgress(Math.min(progress, 100));
         });
+
+        viewModel.getCategories().observe(getViewLifecycleOwner(), this::updateCategoryMap);
+    }
+
+    private void updateCategoryMap(List<Category> categories) {
+        if (categories == null) return;
+        Map<Long, String> map = new HashMap<>();
+        for (Category c : categories) map.put(c.getId(), c.getName());
+        budgetAdapter.setCategoryMap(map);
     }
 
     private void showAddBudgetDialog() {

@@ -77,6 +77,8 @@ public class SettingsFragment extends Fragment {
         });
 
         binding.btnSetPin.setOnClickListener(v -> showSetPinDialog());
+        binding.toolbar.setNavigationOnClickListener(v ->
+            androidx.navigation.Navigation.findNavController(v).navigateUp());
     }
 
     private void applyTheme(String theme) {
