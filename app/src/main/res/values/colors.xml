@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="color_income">#4CAF50</color>
+    <color name="color_expense">#F44336</color>
+    <color name="color_transfer">#2196F3</color>
+    <color name="color_warning">#FF9800</color>
+    <color name="color_primary">#6750A4</color>
+    <color name="color_secondary">#625B71</color>
 </resources>

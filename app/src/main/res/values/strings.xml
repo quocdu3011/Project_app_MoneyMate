@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">MoneyMate</string>
+    <string name="home">Trang chủ</string>
+    <string name="transactions">Giao dịch</string>
+    <string name="budget">Ngân sách</string>
+    <string name="report">Báo cáo</string>
+    <string name="settings">Cài đặt</string>
+    <string name="add_transaction">Thêm giao dịch</string>
+    <string name="total_balance">Tổng số dư</string>
+    <string name="no_transactions">Chưa có giao dịch nào</string>
+    <string name="save">Lưu</string>
+    <string name="cancel">Hủy</string>
+    <string name="delete">Xóa</string>
+    <string name="amount">Số tiền</string>
+    <string name="note">Ghi chú</string>
+    <string name="category">Danh mục</string>
+    <string name="account">Tài khoản</string>
+    <string name="date">Ngày</string>
+    <string name="income">Thu nhập</string>
+    <string name="expense">Chi tiêu</string>
+    <string name="transfer">Chuyển khoản</string>
+    <string name="total_assets">Tổng tài sản</string>
+    <string name="confirm_delete">Xác nhận xóa</string>
+    <string name="confirm_delete_message">Bạn có chắc muốn xóa không?</string>
+    <string name="saved_successfully">Đã lưu thành công</string>
+    <string name="deleted_successfully">Đã xóa thành công</string>
+    <string name="error_empty_amount">Vui lòng nhập số tiền</string>
+    <string name="error_invalid_amount">Số tiền phải lớn hơn 0</string>
 </resources>

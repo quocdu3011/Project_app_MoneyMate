@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Giao diện" android:textStyle="bold" android:textSize="14sp"
+            android:textColor="?attr/colorPrimary" android:layout_marginBottom="8dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" app:cardCornerRadius="12dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RadioGroup android:id="@+id/rg_theme"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:padding="8dp">
+                    <RadioButton android:id="@+id/rb_light" android:layout_width="match_parent"
+                        android:layout_height="48dp" android:text="Sáng" android:paddingStart="8dp" />
+                    <RadioButton android:id="@+id/rb_dark" android:layout_width="match_parent"
+                        android:layout_height="48dp" android:text="Tối" android:paddingStart="8dp" />
+                    <RadioButton android:id="@+id/rb_system" android:layout_width="match_parent"
+                        android:layout_height="48dp" android:text="Theo hệ thống" android:paddingStart="8dp" />
+                </RadioGroup>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Bảo mật" android:textStyle="bold" android:textSize="14sp"
+            android:textColor="?attr/colorPrimary" android:layout_marginBottom="8dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" app:cardCornerRadius="12dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="8dp">
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="48dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:paddingHorizontal="8dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="Khóa ứng dụng" />
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switch_app_lock" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="48dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:paddingHorizontal="8dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="Vân tay / Face ID" />
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switch_biometric" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_set_pin"
+                    android:layout_width="match_parent" android:layout_height="48dp"
+                    android:text="Đặt mã PIN"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_margin="8dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Tiền tệ" android:textStyle="bold" android:textSize="14sp"
+            android:textColor="?attr/colorPrimary" android:layout_marginBottom="8dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" app:cardCornerRadius="12dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="8dp">
+                <RadioGroup android:id="@+id/rg_currency"
+                    android:layout_width="match_parent" android:layout_height="wrap_content">
+                    <RadioButton android:id="@+id/rb_vnd" android:layout_width="match_parent"
+                        android:layout_height="48dp" android:text="VND (₫)" android:paddingStart="8dp" />
+                    <RadioButton android:id="@+id/rb_usd" android:layout_width="match_parent"
+                        android:layout_height="48dp" android:text="USD ($)" android:paddingStart="8dp" />
+                </RadioGroup>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
