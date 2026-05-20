@@ -32,7 +32,7 @@
         android:layout_gravity="center"
         android:text="Chưa có giao dịch nào"
         android:textAlignment="center"
-        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textColor="#757575"
         android:padding="32dp"
         android:visibility="gone" />
 

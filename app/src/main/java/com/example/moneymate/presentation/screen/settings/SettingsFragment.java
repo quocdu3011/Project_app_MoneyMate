@@ -91,7 +91,7 @@ public class SettingsFragment extends Fragment {
     }
 
     private void showSetPinDialog() {
-        // TODO: implement PIN dialog
+        new PinSetupDialog().show(getChildFragmentManager(), "PinSetupDialog");
     }
 
     @Override

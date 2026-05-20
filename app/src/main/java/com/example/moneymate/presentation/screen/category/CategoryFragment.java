@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.moneymate.databinding.FragmentCategoryBinding;
 import com.example.moneymate.domain.model.Category;
 import com.example.moneymate.domain.model.enums.TransactionType;
+import com.example.moneymate.presentation.adapter.CategoryAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
@@ -70,7 +71,7 @@ public class CategoryFragment extends Fragment {
     }
 
     private void showAddCategoryDialog() {
-        // TODO: implement add category dialog
+        new AddEditCategoryDialog().show(getChildFragmentManager(), "AddEditCategoryDialog");
     }
 
     @Override

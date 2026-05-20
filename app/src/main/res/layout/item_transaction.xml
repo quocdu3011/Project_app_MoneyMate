@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:text="01/01/2026"
                 android:textSize="12sp"
-                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textColor="#757575"
                 android:layout_marginTop="2dp" />
         </LinearLayout>
 

@@ -48,7 +48,7 @@ public class AccountFragment extends Fragment {
     }
 
     private void showAddAccountDialog() {
-        // TODO: implement add account dialog
+        new AddEditAccountDialog().show(getChildFragmentManager(), "AddEditAccountDialog");
     }
 
     @Override

@@ -75,7 +75,7 @@ public class BudgetFragment extends Fragment {
     }
 
     private void showAddBudgetDialog() {
-        // TODO: implement add budget dialog
+        new AddEditBudgetDialog().show(getChildFragmentManager(), "AddEditBudgetDialog");
     }
 
     @Override

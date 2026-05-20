@@ -36,6 +36,7 @@ public class TransactionViewModel extends ViewModel {
     private final MutableLiveData<List<Category>> categories = new MutableLiveData<>();
     private final MutableLiveData<Boolean> saveSuccess = new MutableLiveData<>();
     private final MutableLiveData<String> error = new MutableLiveData<>();
+    private final MutableLiveData<Transaction> selectedTransaction = new MutableLiveData<>();
 
     @Inject
     public TransactionViewModel(TransactionRepository transactionRepository,
@@ -115,6 +116,16 @@ public class TransactionViewModel extends ViewModel {
     public LiveData<List<Category>> getCategories() { return categories; }
     public LiveData<Boolean> getSaveSuccess() { return saveSuccess; }
     public LiveData<String> getError() { return error; }
+    public LiveData<Transaction> getSelectedTransaction() { return selectedTransaction; }
+
+    public void loadTransaction(long id) {
+        disposables.add(
+            transactionRepository.getTransactionById(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(selectedTransaction::setValue, t -> error.setValue(t.getMessage()))
+        );
+    }
 
     @Override
     protected void onCleared() {
